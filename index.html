@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portofolio Mustafidhin</title>
+  <meta name="description" content="Mustafidh – Layout Designer & Automasi Desain untuk publikasi Al-Qur'an. Portfolio online.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#f0f4fa;
+      --card:#ffffff;
+      --text:#1f2d3a;
+      --muted:#6e7a8a;
+      --accent:#0066cc;
+      --radius:12px;
+      --shadow:0 25px 50px -12px rgba(31,45,58,.15);
+      --transition:.35s cubic-bezier(.4,.2,.2,1);
+    }
+    [data-theme="dark"] {
+      --bg:#0f172a;
+      --card:#1f243f;
+      --text:#e3e9ff;
+      --muted:#9aa5c1;
+      --accent:#5cc0ff;
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      background:var(--bg);
+      font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+      color:var(--text);
+      line-height:1.55;
+      -webkit-font-smoothing:antialiased;
+      transition:background var(--transition), color var(--transition);
+    }
+    img{display:block;max-width:100%;border-radius:8px;object-fit:cover;}
+    a{color:var(--accent);text-decoration:none;position:relative;}
+    a:focus{outline:2px solid var(--accent);}
+    .container{max-width:1024px;margin:0 auto;padding:1.5rem 1rem;}
+    .flex{display:flex;gap:1rem;}
+    .badge{background:rgba(0,102,204,.1);color:var(--accent);padding:4px 10px;border-radius:999px;font-size:.65rem;font-weight:600;display:inline-block;margin-right:6px;}
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:1.5rem;
+      position:relative;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      transition:transform var(--transition), box-shadow var(--transition);
+    }
+    .card:hover{transform:translateY(-4px);box-shadow:0 35px 60px -15px rgba(31,45,58,.2);}
+    h1{font-size:2.25rem;margin:0;}
+    h2{font-size:1.75rem;margin-top:0;margin-bottom:.75rem;position:relative;}
+    h2::after{
+      content:'';
+      display:block;
+      width:60px;
+      height:4px;
+      background:var(--accent);
+      border-radius:4px;
+      margin-top:6px;
+    }
+    p{margin:0 0 1rem;}
+    .hero{
+      display:grid;
+      gap:1rem;
+      padding:3rem 1rem 2rem;
+      align-items:center;
+      grid-template-columns:1fr auto;
+      position:relative;
+    }
+    .hero-info{max-width:700px;}
+    .role{display:inline-block;background:var(--accent);color:#fff;padding:6px 14px;border-radius:999px;font-size:.65rem;font-weight:600;letter-spacing:.5px;margin-bottom:8px;}
+    .cta-group{margin-top:1rem;display:flex;gap:.75rem;flex-wrap:wrap;}
+    .btn{
+      padding:12px 20px;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      transition:filter var(--transition);
+      text-decoration:none;
+    }
+    .btn-primary{background:var(--accent);color:#fff;}
+    .btn-secondary{background:rgba(255,255,255,.1);color:var(--text);border:1px solid rgba(255,255,255,.15);}
+    .profile-photo{
+      width:150px;
+      height:150px;
+      border-radius:50%;
+      border:5px solid #fff;
+      overflow:hidden;
+      flex-shrink:0;
+    }
+    .skills-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:16px;
+      margin-top:8px;
+    }
+    .skill{
+      background:rgba(255,255,255,.9);
+      padding:14px;
+      border-radius:10px;
+      font-size:.9rem;
+      position:relative;
+      overflow:hidden;
+      box-shadow:0 20px 40px -10px rgba(31,45,58,.07);
+    }
+    .experience-list{
+      display:grid;
+      gap:16px;
+    }
+    .project-grid{
+      display:grid;
+      gap:20px;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    }
+    .project{
+      position:relative;
+    }
+    .project-title{margin:12px 0 4px;font-weight:600;font-size:1.1rem;}
+    .project-desc{font-size:.9rem;color:var(--muted);}
+    .tags{margin:6px 0;}
+    .lightbox-backdrop{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.75);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      z-index:50;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .3s ease;
+    }
+    .lightbox-backdrop.active{
+      opacity:1;
+      pointer-events:auto;
+    }
+    .lightbox-content{
+      position:relative;
+      max-width:900px;
+      width:100%;
+      border-radius:12px;
+      overflow:hidden;
+      background:#000;
+    }
+    .lightbox-img{
+      width:100%;
+      display:block;
+    }
+    .close-btn{
+      position:absolute;
+      top:10px;
+      right:10px;
+      background:rgba(255,255,255,.9);
+      border:none;
+      border-radius:50%;
+      width:38px;
+      height:38px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:18px;
+      line-height:1;
+    }
+    .dark-toggle{
+      position:fixed;
+      right:16px;
+      bottom:16px;
+      background:var(--card);
+      border-radius:999px;
+      padding:10px 14px;
+      box-shadow:0 25px 60px -10px rgba(31,45,58,.25);
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap:6px;
+      font-size:.75rem;
+      z-index:60;
+    }
+    .contact-box{
+      display:flex;
+      flex-wrap:wrap;
+      gap:20px;
+    }
+    .contact-card{
+      flex:1;
+      min-width:240px;
+    }
+    .divider{
+      height:1px;
+      background:rgba(31,45,58,.08);
+      margin:40px 0;
+    }
+    /* scroll reveal simple */
+    .reveal{opacity:0;transform:translateY(12px);transition:opacity .6s ease, transform .6s ease;}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+    small{display:block;margin-top:4px;color:var(--muted);}
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero-info">
+        <div class="role">Layout Designer & Automasi</div>
+        <h1>Mustafidhin</h1>
+        <p>Saya adalah layouter profesional dengan spesialisasi di publikasi Al-Qur’an. Menggabungkan keahlian teknis Adobe InDesign, Illustrator, ExtendScript serta sistem otomatisasi berbasis Node.js/Python untuk menghasilkan layout berkualitas tinggi.</p>
+        <div class="cta-group">
+          <a class="btn btn-primary" href="mailto:mustafidh05@gmail.com">Hubungi Saya</a>
+          <a class="btn" href="https://wa.me/628997166707" target="_blank">WhatsApp</a>
+        </div>
+      </div>
+      <div class="profile-photo">
+        <img src="https://via.placeholder.com/150" alt="Foto Profil">
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <section class="reveal" id="skills">
+      <h2>Keahlian</h2>
+      <div class="skills-grid">
+        <div class="skill card">
+          <strong>Adobe InDesign</strong>
+          <div>Layout, imposition, ExtendScript automasi.</div>
+        </div>
+        <div class="skill card">
+          <strong>Adobe Illustrator</strong>
+          <div>Batch AI import, vektor Arab & Latin.</div>
+        </div>
+        <div class="skill card">
+          <strong>ExtendScript</strong>
+          <div>Panel GUI, scripting workflow.</div>
+        </div>
+        <div class="skill card">
+          <strong>Node.js & Python</strong>
+          <div>Integrasi sistem eksternal tanpa API.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Experience -->
+    <section class="reveal" id="experience">
+      <h2>Pengalaman</h2>
+      <div class="experience-list">
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; flex-wrap:wrap;">
+            <div>
+              <h3 style="margin:0;">Layout Designer – Penerbitan Al-Qur’an</h3>
+              <small>2019 – Sekarang</small>
+              <p style="margin-top:6px;">Menyusun layout Mushaf, imposition booklet bolak-balik, validasi warna tajwid, dan automasi desain menggunakan ExtendScript serta integrasi file-based dengan sistem eksternal.</p>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; flex-wrap:wrap;">
+            <div>
+              <h3 style="margin:0;">Instruktur Desain & Produksi (BSNP Level 3)</h3>
+              <small>2016 – 2019</small>
+              <p style="margin-top:6px;">Melatih tenaga kerja dengan kurikulum terstruktur, fokus efisiensi workflow desain dan produksi cetak bersertifikat nasional.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Portfolio -->
+    <section class="reveal" id="portfolio">
+      <h2>Portofolio</h2>
+      <div class="project-grid">
+        <div class="project card" data-title="Plugin Bookletizer" data-desc="GUI kustom untuk imposition kateren otomatis di Adobe InDesign CS6." data-img="https://via.placeholder.com/800x500">
+          <div class="tags"><span class="badge">ExtendScript</span><span class="badge">Imposition</span></div>
+          <div class="project-title">Plugin Bookletizer</div>
+          <div class="project-desc">GUI untuk cetak kateren (4 halaman per lembar) dengan urutan otomatis.</div>
+          <div style="margin-top:10px;">
+            <img src="https://via.placeholder.com/400x250" alt="Plugin Bookletizer" class="thumb" loading="lazy">
+          </div>
+        </div>
+
+        <div class="project card" data-title="Koreksi Warna Tajwid" data-desc="Sistem bantu validasi warna tajwid berbasis file menggunakan GPT tanpa API." data-img="https://via.placeholder.com/800x500">
+          <div class="tags"><span class="badge">GPT</span><span class="badge">Validasi</span></div>
+          <div class="project-title">Koreksi Warna Tajwid</div>
+          <div class="project-desc">Automasi koreksi visual tajwid untuk mushaf.</div>
+          <div style="margin-top:10px;">
+            <img src="https://via.placeholder.com/400x250" alt="Koreksi Tajwid" class="thumb" loading="lazy">
+          </div>
+        </div>
+
+        <div class="project card" data-title="Dashboard Katalog" data-desc="Dashboard mingguan untuk katalog layout produk dengan insight otomatis." data-img="https://via.placeholder.com/800x500">
+          <div class="tags"><span class="badge">Notion</span><span class="badge">Dashboard</span></div>
+          <div class="project-title">Dashboard Katalog Produk</div>
+          <div class="project-desc">Ringkasan otomatis + status proyek untuk portofolio internal.</div>
+          <div style="margin-top:10px;">
+            <img src="https://via.placeholder.com/400x250" alt="Dashboard" class="thumb" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Contact -->
+    <section class="reveal" id="contact">
+      <h2>Kontak</h2>
+      <div class="contact-box">
+        <div class="card contact-card">
+          <h3>Email</h3>
+          <p><a href="mailto:mustafidh05@gmail.com">mustafidh05@gmail.com</a></p>
+        </div>
+        <div class="card contact-card">
+          <h3>WhatsApp</h3>
+          <p><a href="https://wa.me/628997166707" target="_blank">+62 899-7166-707</a></p>
+        </div>
+      </div>
+      <p style="margin-top:20px;">Terbuka untuk proyek freelance, remote, atau posisi tetap di bidang publishing dan otomasi layout desain.</p>
+    </section>
+
+    <div style="margin:60px 0;text-align:center;">
+      <a class="btn btn-primary" href="mailto:mustafidh05@gmail.com" style="font-size:1rem;">Hubungi Saya Sekarang</a>
+    </div>
+
+    <footer style="text-align:center; padding:30px 10px; font-size:.9rem; color:var(--muted);">
+      © 2025 Mustafidhin • Layout & Automasi • Dibuat oleh Mustafidh
+    </footer>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox-backdrop" id="lightbox">
+    <div class="lightbox-content">
+      <button class="close-btn" aria-label="Tutup">&times;</button>
+      <img src="" alt="Preview proyek" class="lightbox-img">
+      <div style="padding:16px; background:#0f172a; color:#fff;">
+        <h3 id="lb-title" style="margin:0;"></h3>
+        <p id="lb-desc" style="margin:8px 0 0;"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dark mode toggle -->
+  <div class="dark-toggle" id="themeToggle" aria-label="Toggle mode gelap/terang">
+    <span id="themeIcon">🌙</span>
+    <span style="margin-left:4px;">Mode</span>
+  </div>
+
+  <script>
+    // Dark/light mode persistence
+    const root = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    const icon = document.getElementById('themeIcon');
+    const stored = localStorage.getItem('theme');
+    if (stored) {
+      root.setAttribute('data-theme', stored);
+      icon.textContent = stored === 'dark' ? '☀️' : '🌙';
+    } else {
+      // system preference
+      const prefers = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      root.setAttribute('data-theme', prefers ? 'dark' : 'light');
+      icon.textContent = prefers ? '☀️' : '🌙';
+    }
+    toggle.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      icon.textContent = next === 'dark' ? '🌙' : '☀️';
+    });
+
+    // Simple scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, {threshold: 0.15});
+    reveals.forEach(r => observer.observe(r));
+
+    // Lightbox logic
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = lightbox.querySelector('.lightbox-img');
+    const lbTitle = document.getElementById('lb-title');
+    const lbDesc = document.getElementById('lb-desc');
+    const closeBtn = lightbox.querySelector('.close-btn');
+    document.querySelectorAll('.project').forEach(card => {
+      card.addEventListener('click', () => {
+        const title = card.getAttribute('data-title');
+        const desc = card.getAttribute('data-desc');
+        const img = card.getAttribute('data-img');
+        lbTitle.textContent = title;
+        lbDesc.textContent = desc;
+        lbImg.src = img;
+        lightbox.classList.add('active');
+      });
+    });
+    closeBtn.addEventListener('click', () => lightbox.classList.remove('active'));
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox) lightbox.classList.remove('active');
+    });
+  </script>
+</body>
+</html>
